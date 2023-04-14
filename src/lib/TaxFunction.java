@@ -3,7 +3,7 @@ package lib;
 public class TaxFunction {
 
 	
-	/**
+	/*
 	 * Fungsi untuk menghitung jumlah pajak penghasilan pegawai yang harus dibayarkan setahun.
 	 * 
 	 * Pajak dihitung sebagai 5% dari penghasilan bersih tahunan (gaji dan pemasukan bulanan lainnya dikalikan jumlah bulan bekerja dikurangi pemotongan) dikurangi penghasilan tidak kena pajak.
@@ -16,7 +16,15 @@ public class TaxFunction {
 	
 	
 	public static int calculateTax(int monthlySalary, int otherMonthlyIncome, int numberOfMonthWorking, int deductible, boolean isMarried, int numberOfChildren) {
-		
+		// Regular = potongan pajak belum menikah dan belum punya anak
+                // Married = potongan pajak sudah menikah (Married)
+                // Child = potongan pajak punya 1 anak (Child)
+                
+                int regular = 54000000;
+                int married = 4500000;
+                int child = 1500000;
+                        
+                        
 		int tax = 0;
 		
 		if (numberOfMonthWorking > 12) {
@@ -28,9 +36,9 @@ public class TaxFunction {
 		}
 		
 		if (isMarried) {
-			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - (54000000 + 4500000 + (numberOfChildren * 1500000))));
+			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - (regular + married + (numberOfChildren * child))));
 		}else {
-			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - 54000000));
+			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - regular));
 		}
 		
 		if (tax < 0) {
