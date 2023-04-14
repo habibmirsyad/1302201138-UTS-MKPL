@@ -31,13 +31,12 @@ public class TaxFunction {
 			System.err.println("More than 12 month working per year");
 		}
 		
-		if (numberOfChildren > 3) {
-			numberOfChildren = 3;
-		}
+                numberOfChildren = Math.min(numberOfChildren, 3);
 		
 		if (isMarried) {
 			tax = (int) (tax + married + (numberOfChildren * child));
-		
+                }
+                
 		if (tax < 0) {
 			return 0;
 		}else {
